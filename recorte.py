@@ -4,9 +4,9 @@ from rasterio.mask import mask
 import os
 
 # archivos a recortar
-RASTER_DIR = "/home/victor/Documentos/Proyección_Hotspots/RASTER/"
+RASTER_DIR = "./RASTER/"
 # Ruta del archivo SHP que vamos a usar de mascara para el recorte
-SHAPE_PATH = "/home/victor/Documentos/Proyección_Hotspots/VECTOR/Area_Estudio/Area_Estudio.shp"
+SHAPE_PATH = "./VECTOR/Area_Estudio/Area_Estudio.shp"
 # Lista de rasters a procesar 
 RASTERS_A_RECORTAR = [
     "wc2.1_30s_bio_1.tif",
@@ -15,9 +15,11 @@ RASTERS_A_RECORTAR = [
     "wc2.1_30s_bio_15.tif", 
 ]
 # Carpeta resultados recortados
-OUTPUT_DIR = "/home/victor/Documentos/Proyección_Hotspots/RASTER_Re/"
+OUTPUT_DIR = "./RASTER_Re/"
 
-print(f"Buscando mascara en: {SHAPE_PATH}")
+if not os.path.exists(SHAPE_PATH):
+    print(f"Dato de mascara no encontrado: {SHAPE_PATH}")
+
 # Crear directorio de salida si no existe
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -35,6 +37,9 @@ else:
 
 for raster_name in RASTERS_A_RECORTAR:
     input_path = os.path.join(RASTER_DIR, raster_name)
+    if not os.path.exists(input_path):
+        print("ERROR: raster no encontrado")
+        continue # sigue para el proximo
     output_path = os.path.join(OUTPUT_DIR, f"recorte_{raster_name}")
 
     try:
