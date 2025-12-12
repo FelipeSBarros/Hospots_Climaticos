@@ -7,12 +7,12 @@ import os
 RASTER_DIR = "./RASTER/"
 # Ruta del archivo SHP que vamos a usar de mascara para el recorte
 SHAPE_PATH = "./VECTOR/Area_Estudio/Area_Estudio.shp"
-# Lista de rasters a procesar 
+# Lista de rasters a procesar
 RASTERS_A_RECORTAR = [
     "wc2.1_30s_bio_1.tif",
     "wc2.1_30s_bio_5.tif",
     "wc2.1_30s_bio_14.tif",
-    "wc2.1_30s_bio_15.tif", 
+    "wc2.1_30s_bio_15.tif",
 ]
 # Carpeta resultados recortados
 OUTPUT_DIR = "./RASTER_Re/"
@@ -39,7 +39,7 @@ for raster_name in RASTERS_A_RECORTAR:
     input_path = os.path.join(RASTER_DIR, raster_name)
     if not os.path.exists(input_path):
         print("ERROR: raster no encontrado")
-        continue # sigue para el proximo
+        continue  # sigue para el proximo
     output_path = os.path.join(OUTPUT_DIR, f"recorte_{raster_name}")
 
     try:
@@ -48,16 +48,18 @@ for raster_name in RASTERS_A_RECORTAR:
         with rasterio.open(input_path) as src:
             # La funcion mask recorta el raster usando las geometrias obtenidas arriba
             out_image, out_transform = mask(src, geometries, crop=True)
-            
+
             # Actualizar los metadatos para el nuevo raster
             out_meta = src.meta.copy()
-            out_meta.update({
-                "driver": "GTiff",
-                "height": out_image.shape[1],
-                "width": out_image.shape[2],
-                "transform": out_transform,
-                "nodata": src.nodata 
-            })
+            out_meta.update(
+                {
+                    "driver": "GTiff",
+                    "height": out_image.shape[1],
+                    "width": out_image.shape[2],
+                    "transform": out_transform,
+                    "nodata": src.nodata,
+                }
+            )
 
             # guardar raster recortado en la carpeta de salida
             with rasterio.open(output_path, "w", **out_meta) as dest:
@@ -69,6 +71,6 @@ for raster_name in RASTERS_A_RECORTAR:
         print(f" ERROR: No se pudo abrir o encontrar el archivo raster: {input_path}")
     except Exception as e:
         print(f" ERROR al procesar {raster_name}: {e}")
-        
+
 
 print("Proceso de recorte Completo")
