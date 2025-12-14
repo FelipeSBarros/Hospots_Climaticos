@@ -1,15 +1,15 @@
 import rasterio
-import os
+from pathlib import Path
 
 
-future_raster_path = (
+future_raster_path = Path(
     "./RASTER/originales/wc2.1_30s_bioc_IPSL-CM6A-LR_ssp585_2021-2040.tif"
 )
 bandas = [1, 4, 14, 15]
 
 for banda in bandas:
-    salida = f"./RASTER/originales/bio{banda}_fut.tif"
-    if not os.path.exists(future_raster_path):
+    salida = Path(f"./RASTER/originales/bio{banda}_fut.tif")
+    if not future_raster_path.exists():
         print("ERROR: raster no encontrado")
     else:
         with rasterio.open(future_raster_path) as src:
