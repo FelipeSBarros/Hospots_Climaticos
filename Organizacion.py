@@ -8,7 +8,7 @@ future_raster_path = Path(
 bandas = [1, 4, 14, 15]
 
 for banda in bandas:
-    salida = Path(f"./RASTER/originales/bio{banda}_fut.tif")
+    salida = Path(f"./RASTER/originales/bio_{banda}_fut.tif")
     if not future_raster_path.exists():
         print("ERROR: raster no encontrado")
     else:

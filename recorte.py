@@ -15,10 +15,10 @@ RASTERS_A_RECORTAR = [
     "wc2.1_30s_bio/wc2.1_30s_bio_5.tif",
     "wc2.1_30s_bio/wc2.1_30s_bio_14.tif",
     "wc2.1_30s_bio/wc2.1_30s_bio_15.tif",
-    "bio1_fut.tif",
-    "bio5_fut.tif",
-    "bio14_fut.tif",
-    "bio15_fut.tif",
+    "bio_1_fut.tif",
+    "bio_5_fut.tif",
+    "bio_14_fut.tif",
+    "bio_15_fut.tif",
 ]
 # Carpeta resultados recortados
 OUTPUT_DIR = Path("./RASTER/modificados/")
