@@ -3,8 +3,6 @@ import fiona
 from rasterio.mask import mask
 from pathlib import Path
 
-from recorte_fut import geometries
-
 # archivos a recortar
 RASTER_DIR = Path("./RASTER/originales/")
 # Ruta del archivo SHP que vamos a usar de mascara para el recorte
@@ -70,9 +68,10 @@ if SHAPE_PATH.exists():
                 print(f"Recorte exitoso! Guardado en: {output_path}")
 
             except rasterio.RasterioIOError:
-                print(f" ERROR: No se pudo abrir o encontrar el archivo raster: {input_path}")
+                print(
+                    f" ERROR: No se pudo abrir o encontrar el archivo raster: {input_path}"
+                )
             except Exception as e:
                 print(f" ERROR al procesar {raster_name}: {e}")
-
 
         print("Proceso de recorte Completo")
